@@ -2,6 +2,83 @@
 title: 'Particles and Sounds'
 ---
 
+## Introduction to custom particles
+
+The current easiest way to create your own custom particles is using the https://snowstorm.app website created by Jannisx11. There you have several pre-made examples that can be changed everything. In this tutorial we will not teach you how to create something complex, just how to structure your project correctly using a prefect code from the mentioned site.
+
+Now that a short introduction of what you will learn has been done, let's go to the steps:
+
+- Open https://snowstorm.app
+
+- At the top center, click Examples and select Billboard.
+
+- You will notice that the preview will change to an enchantment table particle and on the left side will have a panel for particle configuration. In this panel, scroll to the Texture tab and click.
+
+- It is in this part that you will select the texture you want for your particle, after finishing its configuration, go to the code tab, on the upper right side and copy the code.
+
+It will look similar to this one.
+
+<CodeHeader></CodeHeader>
+
+```json
+  {
+	"format_version": "1.10.0",
+	"particle_effect": {
+		"description": {
+			"identifier": "snowstorm:billboard",
+			"basic_render_parameters": {
+				"material": "particles_alpha",
+				"texture": "textures/particle/particles"
+			}
+		},
+		"components": {
+			"minecraft:emitter_local_space": {
+				"position": true,
+				"rotation": true
+			},
+			"minecraft:emitter_rate_instant": {
+				"num_particles": 1
+			},
+			"minecraft:emitter_lifetime_looping": {
+				"active_time": 1
+			},
+			"minecraft:emitter_shape_point": {},
+			"minecraft:particle_lifetime_expression": {
+				"max_lifetime": 1.5
+			},
+			"minecraft:particle_initial_speed": 0,
+			"minecraft:particle_motion_dynamic": {},
+			"minecraft:particle_appearance_billboard": {
+				"size": [1, 0.25],
+				"facing_camera_mode": "direction_z",
+				"direction": {
+					"mode": "custom",
+					"custom_direction": [0, 0, -1]
+				},
+				"uv": {
+					"texture_width": 128,
+					"texture_height": 128,
+					"uv": [8, 112],
+					"uv_size": [64, 16]
+				}
+			}
+		}
+	}
+}
+```
+
+Now that you have your code ready, the most important thing is to know where to put them correctly so that the particle works or an error will occur.
+
+- create a default texture pack with manifest.json file and pack_icon.png
+
+- create a new folder `resource_pack_folder/particles/` and other `resource_pack_folder/textures/`
+
+- In the particle folder create a new .json file with the name of your preference, me is like this `resource_pack_folder/particle/new_file.json` and put the code that you copy in Snowstorm.
+
+In the textures folder create a new folder named particle `resource_pack_folder/textures/particle` and put your custom texture inside that.
+
+If you followed the steps correctly you can now open Minecraft and test if your particle is working correctly with the command `/particle <namespace:particle_id> ~ ~2 ~`
+
 ## Particles in Animation
 
 Minecraft Particles can be used in entity animations. For example, the phantom has an animation which emits the minecraft:phantom_trail particle constantly. Let's try to add a particle to our entity's attack animation.
